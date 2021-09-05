@@ -8969,6 +8969,11 @@ react-app-polyfill@^2.0.0:
     regenerator-runtime "^0.13.7"
     whatwg-fetch "^3.4.1"
 
+react-create-global-state@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/react-create-global-state/-/react-create-global-state-1.0.0.tgz#d99a900eac6bebfb20eb5a24801fc9ff2d4838b9"
+  integrity sha512-eiooZAr5TQv87d2Dh8us7qDM3Fb+jRJc+La6RxyIJZx/kgMr3EayXBy0SkjHaERLAhPm33COhRABr+hcy/81dA==
+
 react-dev-utils@^11.0.3:
   version "11.0.4"
   resolved "https://registry.yarnpkg.com/react-dev-utils/-/react-dev-utils-11.0.4.tgz#a7ccb60257a1ca2e0efe7a83e38e6700d17aa37a"

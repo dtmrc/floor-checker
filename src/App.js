@@ -1,23 +1,71 @@
-import logo from './logo.svg';
 import './App.css';
+import React, { useCallback, useEffect, useState } from 'react';
+
+const nfts = {
+  kaijus: "Kaiju%20Cards",
+  piggy: "Piggy%20Sol%20Gang",
+  solamander: "Solamanders",
+  bears: "SolBear",
+}
+
+const getData = async (collection) => {
+  const name = nfts[collection];
+  return await (await fetch(`https://us-central1-digitaleyes-prod.cloudfunctions.net/offers-retriever?collection=${name}`)).json();
+}
+
+const defaultItems = {
+  kaijus: [],
+  piggy: [],
+  solamanders: [],
+  bears: [],
+}
 
 function App() {
+  const [items, setItems] = useState(defaultItems);
+  const [isLoading, setLoading] = useState(true);
+
+  const updateAll = useCallback(async () => {
+    setLoading(true);
+    const newItems = {};
+
+    for (const nft of Object.keys(nfts)) {
+      newItems[nft] = await getData(nft);
+    };
+
+    setItems(newItems);
+    setLoading(false);
+  }, [setItems]);
+
+  useEffect(()=> {
+    updateAll();
+  }, [updateAll, setLoading]);
+
+  const getFloored = (collection) => {
+    return items[collection].sort((item1, item2) => item1.price - item2.price)[0];
+  };
+
+  const renderItem = (item) => {
+    console.log(item);
+    return <a href={`https://digitaleyes.market/item/${item.mint}`} target="_blank" rel="noreferrer">{item.price/(1000000000)}</a>
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <button onClick={updateAll}>
+        Refresh
+      </button>
+
+      <div>
+        { isLoading && 'Carregando...' }
+      </div>
+
+      {
+        !isLoading && Object.keys(nfts).map((collection) => {
+          return <div key={collection}>
+            {collection}: {renderItem(getFloored(collection))} in {items[collection].length} sales
+          </div>
+        })
+      }
     </div>
   );
 }
