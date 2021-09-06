@@ -6,6 +6,7 @@ const nfts = {
   piggy: "Piggy%20Sol%20Gang",
   solamander: "Solamanders",
   bears: "SolBear",
+  souls: "Solana%20Souls",
 }
 
 const getData = async (collection) => {
@@ -18,6 +19,7 @@ const defaultItems = {
   piggy: [],
   solamanders: [],
   bears: [],
+  souls: [],
 }
 
 function App() {
