@@ -7,6 +7,7 @@ const nfts = {
   solamander: "Solamanders",
   bears: "SolBear",
   souls: "Solana%20Souls",
+  boats: "BitBoat",
 }
 
 const getData = async (collection) => {
@@ -20,6 +21,7 @@ const defaultItems = {
   solamanders: [],
   bears: [],
   souls: [],
+  boats: [],
 }
 
 function App() {
